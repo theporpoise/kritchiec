@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define MAXLINE 1000 // maximum input line size
+#define MAXLINE 200 // maximum input line size
 
 // these are the function definitions up here
 int yankline(char line[], int maxline);
