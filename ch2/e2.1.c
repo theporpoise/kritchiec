@@ -25,5 +25,5 @@ main(){
     printf("long min is %d\n", LONG_MIN);
     printf("long max unsigned is %d\n", ULONG_MAX);
 
-
+    return 0;
 }

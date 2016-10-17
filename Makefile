@@ -6,8 +6,7 @@ clean:
 	rm -f b.hack
 
 create:
-	cc exercise.c 
-	./a.out
+	cc exercise.c
 
 see:
 	cat b.hack
