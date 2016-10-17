@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <ctype.h>
+
+#define MAX 20 // maximum length of input
+
+// functions defined here
+
+unsigned getbits(unsigned x, int p, int n)
+{
+    return (x >> (p+1-n)) & ~(~0 << n);
+}
+
+unsigned setbits(unsigned x, int p, int n, unsigned y)
+{
+    return ((x >> (p+1-n)) & ~(~0 << n)) | (y & (~0<<n));
+}
+
+
+main(int argc, char *argv[])
+{
+    unsigned xvalue = atoi(argv[1]); 
+    unsigned yvalue = atoi(argv[2]);
+    int p = atoi(argv[3]);
+    int n = atoi(argv[4]);
+
+
+    printf("argv[1] is %s and argv[2] is %s\n", argv[1], argv[2]);
+
+    printf("xvalue is %d, yvalue is %d\n", xvalue, yvalue);
+ 
+//    printf("getbits value is %d\n", getbits(xvalue, 4, 3));
+
+    printf("setbits value is %d\n", setbits(xvalue, p, n, yvalue));
+
+    return 0;
+}
+
+
+
+
