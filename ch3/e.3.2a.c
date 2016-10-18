@@ -12,40 +12,34 @@
 // will give t d d as the answer.  't d d' is treated as single argument.
 // need to enter in escape sequence control-v, control-i for tab and
 // control-v, control-j for newline (linefeed)
-// also you have to double escape backslashes on input e\\t\\n
 
 char * myfunc(char t[], char s[])
 {  
     int i, j;
     i = j = 0;
 
-    char previous;
-
     while(t[i] != '\0' && i < 20)
     {
-        if (previous == '\\')
+        switch (t[i])
         {
-            //printf("you got in the if\n");
-            switch (t[i])
-            {
-                case 'n':
-                    j--;
-                    s[j] = '\n';
-            //        printf("you are in n\n");
-                    break;
-                case 't':
-                    j--;
-                    s[j] = '\t';
-                    break;
-                default:
-                    s[j] = t[i];
-                    break;
-            }
-        }else
-            s[j] = t[i];
- // this else statement was important, before it was overwriting s[j]
- // because I forgot to put it in an else clause.       
-        previous = t[i];
+            case '\n':
+                s[j] = '\\';
+                //printf("you are here");
+                j++;
+                //printf("past j++");
+                s[j] = 'n';
+                //printf("past b");
+                break;
+            case '\t':
+                s[j] = '\\';
+                j++;
+                s[j] = 't';
+                break;
+            default:
+                s[j] = t[i];
+                break;
+        }
+        
         i++;
         j++;
     }
