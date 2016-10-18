@@ -1,31 +1,20 @@
 #include <stdio.h>
-#include <ctype.h>
 
-// bitcount
+//define statements #define MAX 20
 
-int lower(int c)
-{
-    c = (c >= 'a' && c <= 'z') ? c : (c - ('A' - 'a'));
-    return c;
+// function declarations
+
+int myfunc(void)
+{  
+    return 0;
 }
 
+//main function that works from command line.
 main(int argc, char *argv[])
 {
-    printf("argv[1] is %s \n", argv[1]);
+    printf("argc is %d and argv1 is %s\n", argc, argv[1]);
 
-    int c = *argv[1];
-
-    //have to special convert from char to integer by referencing point.
-    printf("atoi of argv is %d\n", c);
-    
-    //automagically converts integer to char when you use char.
-    //good compiler :-)
-    printf("conversion back to char is %c\n", c);
-    
-
-    printf("lower value is %c\n", 
-            (c >= 'a' && c <= 'z') ? c : (c - ('A' - 'a')));
-    printf("using lower function %c\n", lower(c));
+    printf("using myfunc %d\n", myfunc());
 
     return 0;
 }
