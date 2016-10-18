@@ -5,12 +5,22 @@
 
 unsigned int bitcount(unsigned x)
 {
-    int b;
+    int i, b = 0;
 
-    for(b = 0; x != 0; x &= (x-1))
+    while(x != 0)
     {
-        b++;
-    } 
+        if(x & 1)
+        {
+            b++;
+            printf("x is %u, b is %d\n", x, b);
+            x >>= 1; 
+        }else
+        {
+            printf("x is %u, b is %d\n", x, b);
+            x >>= 1;
+        }
+
+    }
 
     return b;
 }
@@ -24,10 +34,6 @@ main(int argc, char *argv[])
     printf("xvalue is %u\n", xvalue);
  
     printf("bitcount value is %u\n", bitcount(xvalue));
-
-    //unsigned int f = atoi(argv[1]);
-    //f &= (f - 1);
-    //printf("and equals is %u\n", f);
 
     return 0;
 }
