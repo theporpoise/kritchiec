@@ -22,6 +22,9 @@ char * myfunc(char t[], char s[])
     char previous;
 
     while(t[i] != '\0' && i < 20)
+        // i put a counter on while loops for safety.
+        // also can use ctrl z, and the kill %(number) to kill a process
+        // if I get an infinite while loop.
     {
         if (previous == '\\')
         {
@@ -60,8 +63,12 @@ main(int argc, char *argv[])
     //        argc, argv, *argv, *argv[1], argv[1], argv[1][0]); 
 
     char * t, * s;
+    // to get the arguments passed as strings just refernce them directly
+    // after declare char * variables to hold strings.
     t = argv[1];
     s = argv[2];
+    // if you want the value of the first character in a string reference it
+    // like argv[1][0].  
     
     printf("t is %s and s is %s\n", t, s); 
     printf("using myfunc %s\n", myfunc(t, s));

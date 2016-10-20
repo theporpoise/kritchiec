@@ -1,56 +1,89 @@
 #include <stdio.h>
+#include <ctype.h>
 
 //define statements 
 
-#define MAX 50
+#define MAX 150
+
+//function expand(s1, s2) expands shorthand notation like a-z in s1 to
+//abc . . . xyz in s2.  (copy s1 to s2 with substitution).  
+//handle a-b-c, a-z0-9, and -a-z.  leading or trailing - is taken literally.
 
 // function declarations
-// escape function converts newline and table to visible escape sequences.
-// as it copies from string t to s.
-// note:  to do this on the command line pass in a sentence with quotes
-// so it will pass as a single arguement to argv like this ./a.out 't d d' me
-// will give t d d as the answer.  't d d' is treated as single argument.
-// need to enter in escape sequence control-v, control-i for tab and
-// control-v, control-j for newline (linefeed)
-// also you have to double escape backslashes on input e\\t\\n
-
-char * myfunc(char t[], char s[])
+char * myfunc(char s[], char t[])
 {  
-    int i, j;
+    int i, j, k;
     i = j = 0;
 
-    char previous;
-
-    while(t[i] != '\0' && i < 20)
+    while(s[i] != '\0' && i < 100)
     {
-        if (previous == '\\')
+        printf("inside the loop\n");
+        if(s[i] == '-')
         {
-            //printf("you got in the if\n");
-            switch (t[i])
+            if(((i-1)< 0))
             {
-                case 'n':
-                    j--;
-                    s[j] = '\n';
-            //        printf("you are in n\n");
-                    break;
-                case 't':
-                    j--;
-                    s[j] = '\t';
-                    break;
-                default:
-                    s[j] = t[i];
-                    break;
+                t[j] = s[i];
+                i++, j++;
+                continue;
             }
-        }else
-            s[j] = t[i];
- // this else statement was important, before it was overwriting s[j]
- // because I forgot to put it in an else clause.       
-        previous = t[i];
-        i++;
-        j++;
+            else if(s[i+1] == '\0')
+            {
+                t[j] = s[i];
+                t[j+1]= '\0';
+                return t;
+            }
+            else if(s[i+1] < s[i-1])
+            {
+                t[j] = s[i];
+                i++, j++;
+                continue;
+            }
+            else if((s[i-1] >= 'a' && s[i-1] <= 'z') &&
+                    (s[i+1] >= 'a' && s[i+1] <= 'z') &&
+                    (s[i+1] > (s[i-1]))) 
+            {
+                for(k=1; k < (s[i+1] - s[i-1]); k++ )
+                {
+                    t[j] = (s[i-1] + k);
+                    j++;
+                }
+                i++;
+                continue;
+            }
+            else if((s[i-1] >= 'A' && s[i-1] <= 'Z') &&
+                    (s[i+1] >= 'Z' && s[i+1] <= 'Z') &&
+                    (s[i+1] > (s[i-1]))) 
+            {
+                for(k=1; k < (s[i+1] - s[i-1]); k++ )
+                {
+                    t[j] = (s[i-1] + k);
+                    j++;
+                }
+                i++;
+                continue;
+            }
+            else if((s[i-1] >= '0' && s[i-1] <= '9') &&
+                    (s[i+1] >= '0' && s[i+1] <= '9') &&
+                    (s[i+1] > (s[i-1]))) 
+            {
+                for(k=1; k < (s[i+1] - s[i-1]); k++ )
+                {
+                    t[j] = (s[i-1] + k);
+                    j++;
+                }
+                i++;
+                continue;
+            }
+        }
+
+        t[j] = s[i];
+        printf("i is %d\n", i); 
+        i++, j++;
     }
-    s[j] = '\0'; 
-    return s;
+
+    t[j+1]= '\0';
+
+    return t;
 }
 
 //main function that works from command line.
@@ -58,13 +91,12 @@ main(int argc, char *argv[])
 {
     //printf("argc %d, argv %d, *argv %d, *argv1 %d, argv1 %s, argv10 is %c\n",
     //        argc, argv, *argv, *argv[1], argv[1], argv[1][0]); 
-
-    char * t, * s;
-    t = argv[1];
-    s = argv[2];
     
-    printf("t is %s and s is %s\n", t, s); 
-    printf("using myfunc %s\n", myfunc(t, s));
+    char z[MAX];
+
+    printf("argv1 is %s, argv2 is %s\n", argv[1], z); 
+    
+    printf("using myfunc %s is the answer \n", myfunc(argv[1], z));
 
     return 0;
 }
